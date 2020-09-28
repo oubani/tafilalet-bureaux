@@ -1,0 +1,159 @@
+form.navbar-nav .form-control {
+    width: 300px;
+}
+body {
+    background: #fff;
+}
+/* SideBar */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+}
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#sidebar .dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+    font-family: "Poppins", sans-serif;
+    /* background: #fafafa; */
+}
+
+p {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #7386d5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #212e69;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #a5ad29;
+    background: #fff;
+}
+
+#sidebar ul li.active > a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #03050e;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #041149;
+}
+.alert {
+    width: 100%;
+    margin: 15px 0;
+}
+
+/* Notre service */
+.notreService {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-bottom: 40px;
+}
+.notreService .serviceItem {
+    padding: 15px;
+}
+.notreService .serviceItem h3 {
+    margin: 10px;
+    text-align: center;
+    color: #3490dc;
+}
+.notreService .serviceItem p {
+    text-align: center;
+    color: #03050e;
+}
+
+.footer {
+    background-color: #343a40;
+    color: white;
+}
+.footer .subscription {
+    padding: 15px;
+    width: 50%;
+    margin: 15px auto;
+}
+.btn-subscreption {
+    position: fixed;
+    right: 10px;
+    margin-top: 255px;
+    padding: 5px;
+    /* background: #041149;
+    color: powderblue; */
+}
+/* Responsive */
+@media only screen and (max-width: 600px) {
+    form.navbar-nav .form-control {
+        width: 100%;
+    }
+    .notreService {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .carousel-item {
+    }
+}
