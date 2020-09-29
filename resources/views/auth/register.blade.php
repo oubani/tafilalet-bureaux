@@ -94,7 +94,7 @@
                                 <button type="submit" class="btn btn-primary mr-5 ">
                                     {{ __('Register') }}
                                 </button>
-                                <a href="/login"> You already have account  </a>
+                                <a href="/login"> Vous avez déjà un compte  </a>
                             </div>
                         </div>
                     </form>
