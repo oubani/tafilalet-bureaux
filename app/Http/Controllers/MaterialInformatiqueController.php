@@ -104,8 +104,9 @@ class MaterialInformatiqueController extends Controller
      * @param  \App\MaterialInformatique  $materialInformatique
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MaterialInformatique $materialInformatique)
+    public function destroy($ref)
     {
-        //
+
+        return $ref;
     }
 }

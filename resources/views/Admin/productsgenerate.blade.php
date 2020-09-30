@@ -9,18 +9,62 @@
                         <th scope="col" align="center">image</th>
                         <th scope="col" align="center">Réfrence</th>
                         <th scope="col" align="center">labelle</th>
+                        <th scope="col" align="center">Modifier</th>
+                        <th scope="col" align="center">Supprimer</th>
+                        
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @if (Count($products)>0)
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td><img src="images/{{$product->image}}" width="100px" height="100px"  alt="{{$product->name}}"></td>
+                                    <td>{{$product->ref}}</td>
+                                    <td>{{$product->name}}</td>
+                                    <td> 
+                                        <button type="button" class="btn btn-primary" onclick="myFunction('{{$product->ref}}','{{$product->name}}')"  data-toggle="modal" data-target="#exampleModal">
+                                            Modifier
+                                        </button>
+                                    </td>
+                                    <td>
+                                        {!!Form::open(['action' => ['ProductController@destroy', $product->ref], 'method' => 'POST'])!!}
+                                            {{Form::hidden('_method', 'DELETE')}}
+                                            {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                        {!!Form::close()!!}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"> Modifier Produit </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {!! Form::open(['action' => ['ProductController@update', $product->ref], 'method' => 'POST']) !!}
+                                            <div class="form-group">
+                                                {{Form::label('title', 'Name')}}
+                                                {{Form::text('name', '', ['id'=>'title' ,'class' => 'form-control', 'placeholder' => 'Title'])}}
+                                                {{Form::hidden('ref', '', ['id'=>'ref' ,'class' => 'form-control', 'placeholder' => 'ref'])}}
+                                            </div>
+                                            {{Form::hidden('_method','PUT')}}
+                                            {{Form::submit('Modifier', ['class'=>'btn btn-primary btn-block '])}}
+                                        {!! Form::close() !!}
+                                        <button type="button" class="btn btn-secondary btn-block " data-dismiss="modal">Fermer</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                        @else
                         <tr>
-                            <td><img src="images/{{$product->image}}" width="100px" height="100px"  alt="{{$product->name}}"></td>
-                            <td>{{$product->ref}}</td>
-                            <td>{{$product->name}}</td>
+                            <td>Inserer des produit</td>
                         </tr>
-                            
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
+                {{ $products->links() }}
             </div>
             <div class="col-md-4">
                 <form class="card text-white bg-dark px-4 py-3" enctype="multipart/form-data"  method="POST" action="/product" >
@@ -51,5 +95,15 @@
                   </form>
             </div>
         </div>
+         <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+        function myFunction(ref,title) {
+
+            document.getElementById('title').value = title;
+            document.getElementById('ref').value = ref;
+        }
+    </script>
     </div>
 @endsection

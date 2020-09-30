@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,9 @@ class ProductController extends Controller
     public function index()
     {
         // Products Admin page
-        $products = Product::all();
+        $products = DB::table('products')
+            ->select('*')
+            ->paginate(6);
         $categories = Category::all();
         return view('Admin.productsgenerate', ['products' => $products, 'categories' => $categories]);
     }
@@ -44,7 +47,7 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'required|string|min:10',
-            'ref' => 'required|string|min:3',
+            'ref' => 'required|unique:products,ref|string|min:3',
             'image' => 'required|image',
             'category_id' => 'required',
         ]);
@@ -107,7 +110,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product = DB::table('products')
+            ->select('*')
+            ->where('ref', '=', $request->ref)
+            ->get();
+        if (count($product) > 0) {
+            DB::table('products')
+                ->where('ref', $request->ref)
+                ->update(['name' => $request->name]);
+            return redirect('ProductsGenerate')->with('success', 'le produit a été modifier ');
+        } else {
+            return redirect('ProductsGenerate')->with('error', 'le produit n\est pas  modifier ');
+        }
     }
 
     /**
@@ -116,8 +130,19 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($ref)
     {
-        //
+        // return $product;
+        $product = DB::table('products')
+            ->select('*')
+            ->where('ref', '=', $ref)
+            ->get();
+        if (count($product) == 0) {
+
+            return redirect('ProductsGenerate')->with('error', 'le produit n\'est pas supprimer');
+        }
+        DB::table('products')->where('ref', '=', $ref)->delete();
+
+        return redirect('ProductsGenerate')->with('success', 'le produit a été supprimer');
     }
 }

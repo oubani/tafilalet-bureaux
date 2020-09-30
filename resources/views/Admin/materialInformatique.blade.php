@@ -3,15 +3,17 @@
 @section('adminContent')
     <div class="container">
         <div class="row mt-2 ">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <table class="table">
                     <thead class="thead-dark">
-                        <th scope="col" align="center">image</th>
+                        <th scope="col" align="center">Image</th>
                         <th scope="col" align="center">Réfrence</th>
-                        <th scope="col" align="center">name</th>
-                        <th scope="col" align="center">description</th>
-                        <th scope="col" align="center">etat</th>
-                        <th scope="col" align="center">garentie</th>
+                        <th scope="col" align="center">Name</th>
+                        <th scope="col" align="center">Description</th>
+                        <th scope="col" align="center">Etat</th>
+                        <th scope="col" align="center">Garentie</th>
+                        <th scope="col" align="center">Supprimer</th>
+                        <th scope="col" align="center">Modifier</th>
                     </thead>
                     <tbody>
                         @foreach ($materials as $material)
@@ -19,16 +21,22 @@
                             <td><img src="images/{{$material->image}}" width="100px" height="100px"  alt="{{$material->name}}"></td>
                             <td>{{$material->ref}}</td>
                             <td>{{$material->name}}</td>
-                            <td>{{$material->description}}</td>
+                            <td> <div style="height: 110px ;overflow:hidden " > {{$material->description}} </div></td>
                             <td>{{$material->etat==1?'nouveau':'utilisé'}}</td>
                             <td>{{$material->garentie}} ans </td>
+                            <td>
+                                 {!!Form::open(['action' => ['MaterialInformatiqueController@destroy', $material->ref], 'method' => 'POST'])!!}
+                                    {{Form::hidden('_method', 'DELETE')}}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                {!!Form::close()!!}
+                            </td>
                         </tr>
                             
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <form class="card text-white bg-dark px-4 py-3" enctype="multipart/form-data"  method="POST" action="/materialInformatique" >
                     @csrf
                     

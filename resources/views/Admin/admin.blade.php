@@ -23,13 +23,12 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <div class="container-fluid">
+    <div id="app">   
             <div class="row">
-                <div class="col-md-3  ">
+                <div class="col-md-2">
                     @include('layouts.sideBar')
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     @include('layouts.message')
                     @yield('adminContent')
                 </div>
