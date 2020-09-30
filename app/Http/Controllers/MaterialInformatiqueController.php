@@ -16,6 +16,7 @@ class MaterialInformatiqueController extends Controller
     public function index()
     {
         $materials = MaterialInformatique::all();
+
         return view('Admin.materialInformatique', ['materials' => $materials]);
     }
 
@@ -95,7 +96,19 @@ class MaterialInformatiqueController extends Controller
      */
     public function update(Request $request, MaterialInformatique $materialInformatique)
     {
-        //
+        return $request;
+        $material = DB::table('material_informatiques')
+            ->select('*')
+            ->where('ref', '=', $request->ref)
+            ->get();
+        if (count($material) > 0) {
+            DB::table('material_informatiques')
+                ->where('ref', $request->ref)
+                ->update(['name' => $request->name]);
+            return redirect('materialInformatiqueGenerate')->with('success', 'le produit a été modifier ');
+        } else {
+            return redirect('materialInformatiqueGenerate')->with('error', 'le produit n\est pas  modifier ');
+        }
     }
 
     /**
@@ -106,7 +119,15 @@ class MaterialInformatiqueController extends Controller
      */
     public function destroy($ref)
     {
+        $material = DB::table('material_informatiques')
+            ->select('*')
+            ->where('ref', '=', $ref)
+            ->get();
+        if (count($material) == 0) {
+            return redirect('materialInformatiqueGenerate')->with('error', 'le produit n\'est pas supprimer');
+        }
+        DB::table('material_informatiques')->where('ref', '=', $ref)->delete();
 
-        return $ref;
+        return redirect('materialInformatiqueGenerate')->with('success', 'le produit a été supprimer');
     }
 }

@@ -14,7 +14,7 @@ class CreateMaterialInformatiquesTable extends Migration
     public function up()
     {
         Schema::create('material_informatiques', function (Blueprint $table) {
-            $table->string('ref');
+            $table->string('ref')->unique();
             $table->string('name');
             $table->string('description');
             $table->string('image');

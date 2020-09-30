@@ -29,6 +29,7 @@ Route::post('product', 'ProductController@store')->middleware('admin');
 Route::get('/materialInformatiqueGenerate', 'MaterialInformatiqueController@index')->middleware('admin');
 Route::post('materialInformatique', 'MaterialInformatiqueController@store')->middleware('admin');
 Route::delete('materialInformatique/{ref}', 'MaterialInformatiqueController@destroy')->middleware('admin');
+Route::put('materialInformatique/{ref}', 'MaterialInformatiqueController@update')->middleware('admin');
 
 
 Route::get('/produits', 'ProductController@categored')->middleware('admin'); // this route to display products to clients

@@ -56,7 +56,7 @@
                                     </div>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                         @else
                         <tr>
                             <td>Inserer des produit</td>
