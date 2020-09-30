@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Catalogue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogueController extends Controller
 {
@@ -122,8 +123,14 @@ class CatalogueController extends Controller
      * @param  \App\Catalogue  $catalogue
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Catalogue $catalogue)
+    public function destroy($id)
     {
-        //
+        $catalogue = Catalogue::findorFail($id);
+        if ($catalogue) {
+            Storage::disk()->delete('catalogues/' . $catalogue->pdfFile);
+            // Storage::disk()->delete('images/' . $catalogue->cover);
+            $catalogue->delete();
+            return Redirect('/catalogue')->with('success', 'catalogue a été supprimer ');
+        }
     }
 }

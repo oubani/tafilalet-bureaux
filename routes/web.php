@@ -56,6 +56,7 @@ Route::post('/services', 'ServicesController@update');
 Route::get('/Catalgues', 'CatalogueController@allcatalogues');
 
 Route::post('/catalogue', 'CatalogueController@store');
+Route::delete('/catalogue/{id}', 'CatalogueController@destroy')->middleware('admin');
 Route::get('/catalogue', 'CatalogueController@index');
 // Route::get('/slide/{id}/edit', 'CatalogueController@update');
 

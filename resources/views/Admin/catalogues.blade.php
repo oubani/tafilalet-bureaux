@@ -8,19 +8,29 @@
                         <tr>
                             <th scope="col" >Cover</th>
                             <th scope="col" >Mois</th>
-                            <th scope="col" >Supprimer</th>
-                            <th scope="col" >Modifier</th>
+                            <th scope="col" >Telecharger</th> 
+                            <th scope="col" >Supprimer</th> 
                         </tr>
                     </thead>
                     <tbody>
+                        @if (count($catalogues)>0)
                         @foreach ($catalogues as $catalogue)
                             <tr>
                                 <td><img height="100px" src="/images/{{$catalogue->cover}}" alt="{{$catalogue->mois}}-image-calatalogue" > </td>
                                 <td>{{$catalogue->mois}} </td>
-                                <td> <a href="/catalogues/{{$catalogue->pdfFile}}"  target="_blank" rel="noopener noreferrer">download</a> </td>
-                                <td> </td>
+                                <td> <a href="/catalogues/{{$catalogue->pdfFile}}"  target="_blank" rel="noopener noreferrer">Telecharger</a> </td>
+                                 <td>
+                                    {!!Form::open(['action' => ['CatalogueController@destroy', $catalogue->id], 'method' => 'POST'])!!}
+                                        {{Form::hidden('_method', 'DELETE')}}
+                                        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                    {!!Form::close()!!}
+                                </td>
                             </tr>
                         @endforeach
+                            
+                        @else
+                            
+                        @endif
                     </tbody>
                 </table>
             </div>
