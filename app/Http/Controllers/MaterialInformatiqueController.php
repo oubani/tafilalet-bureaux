@@ -123,6 +123,7 @@ class MaterialInformatiqueController extends Controller
             ->select('*')
             ->where('ref', '=', $ref)
             ->get();
+        // hello
         if (count($material) == 0) {
             return redirect('materialInformatiqueGenerate')->with('error', 'le produit n\'est pas supprimer');
         }
